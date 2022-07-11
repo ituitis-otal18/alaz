@@ -5,7 +5,7 @@ class Homepage extends React.Component {
     render() {
         return (
             <div className="container">
-                Homepage!
+                <h3>Homepage!</h3>
                 <UserList />
             </div>
         );

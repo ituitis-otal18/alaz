@@ -2,16 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { getUsers } from '../api/ApiRequests';
 import { Authentication } from '../api/AuthContext';
-
-const defaultImage = (
-    <img
-        alt="user profile"
-        src="/placeholder.jpeg"
-        width="32"
-        height="32"
-        className="rounded-circle d-inline-block mr-2"
-    />
-);
+import ProfileImage from '../components/ProfileImage';
 
 class UserList extends React.Component {
     static contextType = Authentication;
@@ -59,45 +50,43 @@ class UserList extends React.Component {
             this.state;
 
         const spinner = (
-            <ul className="pagination justify-content-center">
-                <li className="page-item">
-                    <button className="btn btn-primary" disabled>
-                        <span
-                            className="spinner-border spinner-border-sm"
-                            role="status"
-                            aria-hidden="true"
-                        ></span>
-                    </button>
-                </li>
-            </ul>
+            <li className="page-item">
+                <button className="btn btn-primary" disabled>
+                    <span
+                        className="spinner-border spinner-border-sm"
+                        role="status"
+                        aria-hidden="true"
+                    ></span>
+                </button>
+            </li>
         );
         const pageButtons = (
-            <ul className="pagination justify-content-center">
+            <>
                 <li className="page-item">
                     <button
-                        className="btn btn-primary"
+                        className="btn btn-primary d-inline-flex"
                         disabled={currentPage === 1}
                         onClick={this.backPage}
                     >
-                        &laquo;
+                        <span className="material-icons">arrow_back</span>
                     </button>
                 </li>
                 <li className="page-item">
                     <p className="page-link disabled">
-                        {`${currentPage} / ${totalPages}`}
+                        {` ${currentPage} / ${totalPages} `}
                     </p>
                 </li>
 
                 <li className="page-item">
                     <button
-                        className="btn btn-primary"
+                        className="btn btn-primary d-inline-flex"
                         disabled={currentPage === totalPages}
                         onClick={this.nextPage}
                     >
-                        &raquo;
+                        <span className="material-icons">arrow_forward</span>
                     </button>
                 </li>
-            </ul>
+            </>
         );
 
         return (
@@ -110,12 +99,19 @@ class UserList extends React.Component {
                             key={user.username}
                             to={`/user/${user.username}`}
                         >
-                            {user.image ? user.image : defaultImage}@
-                            {user.username}
+                            <ProfileImage
+                                className="rounded-circle d-inline-block mr-3 shadow"
+                                width="32"
+                                height="32"
+                                image={user.image}
+                            />
+                            @{user.username}
                         </Link>
                     ))}
                 </div>
-                {pendingApiCall ? spinner : pageButtons}
+                <ul className="pagination justify-content-center pt-2">
+                    {pendingApiCall ? spinner : pageButtons}
+                </ul>
             </div>
         );
     }

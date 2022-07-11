@@ -18,6 +18,7 @@ class AuthContext extends React.Component {
     onLogoutSuccess = () => {
         this.setState({ loggedIn: false, user: {} });
         LS.clear();
+        window.location.reload();
     };
 
     componentDidMount() {

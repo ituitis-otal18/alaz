@@ -11,7 +11,7 @@ const SubmitButton = (props) => {
             disabled={pendingApiCall || !btnEnabled}
         >
             {pendingApiCall && (
-                <span className="spinner-border spinner-border-sm"></span>
+                <span className="spinner-border spinner-border-sm mr-2"></span>
             )}
             {text}
         </button>

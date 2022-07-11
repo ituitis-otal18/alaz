@@ -1,5 +1,6 @@
 package com.alaz.ws;
 
+import com.alaz.ws.shared.FileService;
 import com.alaz.ws.user.User;
 import com.alaz.ws.user.UserService;
 import org.slf4j.Logger;
@@ -8,6 +9,10 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+
+import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 @SpringBootApplication
 public class WsApplication {
@@ -35,6 +40,13 @@ public class WsApplication {
                 user.setEmail("user@mail"+i);
                 user.setPassword("123123");
                 userService.save(user);
+            }
+
+            File[] allContents = new File("storage").listFiles();
+            if (allContents != null) {
+                for (File file : allContents) {
+                    Files.delete(Path.of(file.getPath()));
+                }
             }
         };
     }

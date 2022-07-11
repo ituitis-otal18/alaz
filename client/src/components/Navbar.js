@@ -18,11 +18,20 @@ class Navbar extends React.Component {
                             className="nav-link"
                             to={`/user/${user.username}`}
                         >
-                            @{user.username}
+                            <button className="btn btn-light d-inline-flex">
+                                <i className="material-icons mr-1">person</i>
+                                {user.username}
+                            </button>
                         </Link>
                     </li>
-                    <li className="nav-item nav-link pointer" style={{cursor:"pointer"}} onClick={onLogoutSuccess}>
-                        Logout
+                    <li className="nav-item nav-link">
+                        <button
+                            className="btn btn-light d-inline-flex"
+                            onClick={onLogoutSuccess}
+                        >
+                            <i className="material-icons mr-1">logout</i>
+                            Logout
+                        </button>
                     </li>
                 </ul>
             );
@@ -31,12 +40,18 @@ class Navbar extends React.Component {
                 <ul className="navbar-nav ml-auto">
                     <li className="nav-item">
                         <Link className="nav-link" to="/login">
-                            Login
+                            <button className="btn btn-light d-inline-flex">
+                                <i className="material-icons mr-1">login</i>
+                                Login
+                            </button>
                         </Link>
                     </li>
                     <li className="nav-item">
                         <Link className="nav-link" to="/signup">
-                            Signup
+                            <button className="btn btn-light d-inline-flex">
+                                <i className="material-icons mr-1">edit_note</i>
+                                Sign up
+                            </button>
                         </Link>
                     </li>
                 </ul>
@@ -46,7 +61,7 @@ class Navbar extends React.Component {
         return (
             <div className="shadow-sm bg-light mb-3">
                 <nav className="navbar navbar-light navbar-expand container">
-                    <Link className="navbar-brand" to="/">
+                    <Link className="navbar-brand font-weight-bold align-center" to="/">
                         <img
                             src="/fire.png"
                             width="32"

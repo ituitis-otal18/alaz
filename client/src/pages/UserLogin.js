@@ -47,38 +47,52 @@ class Login extends React.Component {
         const btnEnabled = this.state.username && this.state.password;
 
         return (
-            <div className="container">
-                <form>
-                    <h1 className="text-center">Login</h1>
-                    <Input
-                        name="username"
-                        label="Username"
-                        error={error}
-                        onChange={this.onChange}
-                        type="text"
-                    />
-                    <Input
-                        name="password"
-                        label="Password"
-                        error={error}
-                        onChange={this.onChange}
-                        type="password"
-                    />
-                    {error && (
-                        <div className="alert alert-danger">
-                            Wrong username or password
-                        </div>
-                    )}
-                    <div className="text-center">
-                        <SubmitButton
-                            onClick={this.onSubmit}
-                            pendingApiCall={pendingApiCall}
-                            btnEnabled={btnEnabled}
-                            text="Login"
+            <div className="container-fluid">
+                <div className="row d-flex justify-content-center align-items-center h-100">
+                    <div className="col-md-9 col-lg-6 col-xl-5">
+                        <img
+                            className="img-fluid"
+                            alt="bg"
+                            src="https://source.unsplash.com/random"
                         />
-                        {success && <Navigate to="/" replace={true} />}
                     </div>
-                </form>
+                    <div className="col-md-8 col-lg-6 col-xl-4">
+                        <form>
+                            <h1 className="text-center">Login</h1>
+                            <Input
+                                name="username"
+                                label="Username"
+                                error={error}
+                                onChange={this.onChange}
+                                type="text"
+                            />
+                            <Input
+                                name="password"
+                                label="Password"
+                                error={error}
+                                onChange={this.onChange}
+                                type="password"
+                            />
+                            {error && (
+                                <div className="alert alert-danger">
+                                    <span className="align-middle">
+                                        <i className="material-icons">error</i>
+                                    </span>
+                                    Wrong username or password
+                                </div>
+                            )}
+                            <div className="text-center">
+                                <SubmitButton
+                                    onClick={this.onSubmit}
+                                    pendingApiCall={pendingApiCall}
+                                    btnEnabled={btnEnabled}
+                                    text="Login"
+                                />
+                                {success && <Navigate to="/" replace={true} />}
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
         );
     }
