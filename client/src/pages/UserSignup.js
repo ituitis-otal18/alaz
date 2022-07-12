@@ -51,40 +51,64 @@ class UserSignup extends React.Component {
             this.state.username && this.state.email && this.state.password;
 
         return (
-            <div className="container">
-                <form>
-                    <h1 className="text-center">Sign Up</h1>
-                    <Input
-                        name="username"
-                        label="Username"
-                        error={username}
-                        onChange={this.onChange}
-                        type="text"
-                    />
-                    <Input
-                        name="email"
-                        label="E-mail"
-                        error={email}
-                        onChange={this.onChange}
-                        type="text"
-                    />
-                    <Input
-                        name="password"
-                        label="Password"
-                        error={password}
-                        onChange={this.onChange}
-                        type="password"
-                    />
-                    <div className="text-center">
-                        <SubmitButton
-                            onClick={this.onSubmit}
-                            pendingApiCall={pendingApiCall}
-                            btnEnabled={btnEnabled}
-                            text="Sign up"
-                        />
-                        {success && <Navigate to="/login" replace={true} />}
+            <div className="container-fluid">
+                <div className="row d-flex justify-content-center align-items-center h-100">
+                    <div className="col-md-8 col-lg-6 col-xl-4">
+                        <div className="card">
+                            <div className="card-header">
+                                <h1 className="card-title text-center">
+                                    Sign up
+                                </h1>
+                            </div>
+                            <div className="card-body">
+                                <form>
+                                    <Input
+                                        name="username"
+                                        label="Username"
+                                        error={username}
+                                        onChange={this.onChange}
+                                        type="text"
+                                    />
+                                    <Input
+                                        name="email"
+                                        label="E-mail"
+                                        error={email}
+                                        onChange={this.onChange}
+                                        type="text"
+                                    />
+                                    <Input
+                                        name="password"
+                                        label="Password"
+                                        error={password}
+                                        onChange={this.onChange}
+                                        type="password"
+                                    />
+                                    <div className="text-center">
+                                        <SubmitButton
+                                            onClick={this.onSubmit}
+                                            pendingApiCall={pendingApiCall}
+                                            btnEnabled={btnEnabled}
+                                            text="Sign up"
+                                        />
+                                        {success && (
+                                            <Navigate
+                                                to="/login"
+                                                replace={true}
+                                            />
+                                        )}
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
                     </div>
-                </form>
+                    <div className="col-md-9 col-lg-6 col-xl-5">
+                        <img
+                            className="rounded mw-100 mh-50"
+                            alt="bg"
+                            src="https://source.unsplash.com/random"
+                        />
+                    </div>
+                </div>
             </div>
         );
     }

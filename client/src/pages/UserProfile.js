@@ -1,6 +1,5 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import { Authentication } from '../api/AuthContext';
 import ProfileCard from '../components/ProfileCard';
 import { getUserByUsername } from '../api/ApiRequests';
 
@@ -12,8 +11,6 @@ export function withRouter(Children) {
 }
 
 class UserProfile extends React.Component {
-    static contextType = Authentication;
-
     state = {
         user: null,
         pathUsername: null,
@@ -48,7 +45,7 @@ class UserProfile extends React.Component {
     }
 
     render() {
-        const loggedInUser = this.context.state.user;
+        
         const { user, pendingApiCall } = this.state;
 
         return (
@@ -60,7 +57,7 @@ class UserProfile extends React.Component {
                         </div>
                     </div>
                 ) : user ? (
-                    <ProfileCard user={user} loggedInUser={loggedInUser} />
+                    <ProfileCard user={user}/>
                 ) : (
                     <div className="alert alert-danger text-center">
                         <div>

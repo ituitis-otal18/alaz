@@ -21,11 +21,13 @@ class AuthContext extends React.Component {
         window.location.reload();
     };
 
+    onUpdateSuccess = (updatedUser) => {
+        this.setState({ user: updatedUser });
+    };
+
     componentDidMount() {
         const prevState = LS.get('state');
-        if (prevState) {
-            this.setState(prevState);
-        }
+        if (prevState) this.setState(prevState);
     }
 
     render() {
@@ -35,6 +37,7 @@ class AuthContext extends React.Component {
                     state: { ...this.state },
                     onLoginSuccess: this.onLoginSuccess,
                     onLogoutSuccess: this.onLogoutSuccess,
+                    onUpdateSuccess: this.onUpdateSuccess,
                 }}
             >
                 {this.props.children}

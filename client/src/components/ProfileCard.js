@@ -1,9 +1,12 @@
 import React from 'react';
 import ProfileImage from './ProfileImage';
 import Input from '../components/Input';
+import { Authentication } from '../api/AuthContext';
 import { updatePassword, updateImage } from '../api/ApiRequests';
 
 class ProfileCard extends React.Component {
+    static contextType = Authentication;
+
     state = {
         oldPassword: null,
         newPassword: null,
@@ -46,6 +49,7 @@ class ProfileCard extends React.Component {
             .then((res) => {
                 console.info(res.data);
                 this.setState({ inEditMode: false, errors: {} });
+                this.context.onUpdateSuccess(res.data);
             })
             .catch((err) => {
                 const message = err.response.data.message;
@@ -72,7 +76,7 @@ class ProfileCard extends React.Component {
 
         this.setState({ pendingApiCall: true });
 
-        const username = this.props.loggedInUser.username;
+        const username = this.props.user.username;
         const body = {
             newImage: newImage.split(',')[1],
         };
@@ -85,11 +89,12 @@ class ProfileCard extends React.Component {
                     inEditMode: false,
                     errors: {},
                 });
+                this.context.onUpdateSuccess(res.data);
             })
             .catch((err) => {
                 const message = err.response.data.message;
                 this.setState({
-                    errors: { image: message },
+                    errors: { newImage: message },
                 });
             });
 
@@ -98,7 +103,7 @@ class ProfileCard extends React.Component {
 
     render() {
         const { username, image } = this.props.user;
-        const { loggedInUser } = this.props;
+        const loggedInUser = this.context.state.user;
         const { inEditMode, pendingApiCall, errors, imageSrc } = this.state;
 
         return (
@@ -127,21 +132,26 @@ class ProfileCard extends React.Component {
                     )}
                     {inEditMode && (
                         <div className="container text-left">
-                            <Input
-                                name="image"
-                                label="Profile Image"
-                                onChange={this.onFileChange}
-                                type="file"
-                            />
-                            <button
-                                type="submit"
-                                className="btn btn-success d-inline-flex mb-2"
-                                onClick={this.onSaveImage}
-                                disabled={pendingApiCall}
-                            >
-                                <i className="material-icons mr-1">upload</i>
-                                Upload
-                            </button>
+                            <div className="form-group">
+                                <Input
+                                    name="newImage"
+                                    label="New Profile Image"
+                                    error={errors.newImage}
+                                    onChange={this.onFileChange}
+                                    type="file"
+                                />
+                                <button
+                                    type="submit"
+                                    className="btn btn-success d-inline-flex mb-1"
+                                    onClick={this.onSaveImage}
+                                    disabled={pendingApiCall}
+                                >
+                                    <i className="material-icons mr-1">
+                                        upload
+                                    </i>
+                                    Upload
+                                </button>
+                            </div>
 
                             <div className="dropdown-divider"></div>
 

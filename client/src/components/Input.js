@@ -1,7 +1,10 @@
 import React from 'react';
 
 const Input = (props) => {
-    const className = props.error ? 'form-control is-invalid' : 'form-control';
+    let className = 'form-control';
+
+    if (props.type === 'file') className = 'form-control-file';
+    if (props.error) className += ' is-invalid';
 
     return (
         <div className="form-group">

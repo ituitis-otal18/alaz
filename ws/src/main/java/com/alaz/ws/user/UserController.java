@@ -49,7 +49,7 @@ public class UserController {
     }
 
     @PutMapping("/users/{username}/image")
-    public ResponseEntity<?> updateUserImage(@Valid @RequestBody UserUpdateVM userUpdateVM, @PathVariable String username){
+    public ResponseEntity<?> updateUserImage(@Valid @RequestBody UserUpdateVM userUpdateVM, @PathVariable String username, @CurrentUser User loggedInUser){
         User user = userService.updateUserImage(userUpdateVM, username);
 
         if(user == null)

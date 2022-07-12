@@ -8,6 +8,7 @@ class UserList extends React.Component {
     static contextType = Authentication;
 
     state = {
+        init: false,
         allUsers: [],
         currentPage: 0,
         totalPages: 0,
@@ -33,9 +34,12 @@ class UserList extends React.Component {
         this.setState({ pendingApiCall: false });
     };
 
-    componentDidMount() {
-        this.getUsersFromDB(1);
-    }
+    initialize = () => {
+        if (!this.state.init) {
+            this.getUsersFromDB(1);
+            this.setState({ init: true });
+        }
+    };
 
     backPage = () => {
         this.getUsersFromDB(this.state.currentPage - 1);
@@ -46,6 +50,8 @@ class UserList extends React.Component {
     };
 
     render() {
+        this.initialize();
+
         const { allUsers, currentPage, totalPages, pendingApiCall } =
             this.state;
 

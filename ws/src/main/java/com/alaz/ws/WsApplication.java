@@ -42,7 +42,11 @@ public class WsApplication {
                 userService.save(user);
             }
 
-            File[] allContents = new File("storage").listFiles();
+            File storage = new File("storage");
+            if (!storage.exists())
+                storage.mkdirs();
+
+            File[] allContents = storage.listFiles();
             if (allContents != null) {
                 for (File file : allContents) {
                     Files.delete(Path.of(file.getPath()));
