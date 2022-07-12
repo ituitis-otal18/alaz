@@ -26,15 +26,15 @@ jobs:
         java-version: '11'
     
     - run: npm ci
-      working-directory: frontend
+      working-directory: client
 
     - run: npm run build --if-present
-      working-directory: frontend
+      working-directory: client
       
     - name: Copy React files to Spring
       run: |
         mkdir -p ws/src/main/resources/static
-        cp -a frontend/build/. ws/src/main/resources/static/
+        cp -a client/build/. ws/src/main/resources/static/
         
     - name: Build Spring
       run: mvn -B package --file pom.xml
