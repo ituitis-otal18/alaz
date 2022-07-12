@@ -29,7 +29,7 @@ jobs:
       working-directory: ./frontend
 
     - run: npm run build --if-present
-      working-directory: ./frontend
+      working-directory: frontend
       
     - name: Copy React files to Spring
       run: |
@@ -38,7 +38,7 @@ jobs:
         
     - name: Build Spring
       run: mvn -B package --file pom.xml
-      working-directory: ./ws
+      working-directory: ws
       
     - name: SFTP Deploy
       uses: wlixcc/SFTP-Deploy-Action@v1.2.4
