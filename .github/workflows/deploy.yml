@@ -1,0 +1,50 @@
+name: Alaz Deploy
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Use Node.js 12.x
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+    - name: Setup Java JDK
+      uses: actions/setup-java@v3.4.1   
+      with:
+        java-version: 1.8
+    
+    - run: npm ci
+      working-directory: ./frontend
+
+    - run: npm run build --if-present
+      working-directory: ./frontend
+      
+    - name: Copy React files to Spring
+      run: |
+        mkdir -p ws/src/main/resources/static
+        cp -a frontend/build/. ws/src/main/resources/static/
+        
+    - name: Build Spring
+      run: mvn -B package --file pom.xml
+      working-directory: ./ws
+      
+    - name: SFTP Deploy
+      uses: wlixcc/SFTP-Deploy-Action@v1.2.4
+      with:
+        username: ${{secrets.USERNAME}}
+        server: ${{secrets.IP}}
+        ssh_private_key: ${{secrets.SSH}}
+        local_path: ws/target/ws-0.0.1-SNAPSHOT.jar
+        remote_path: /home/${{secrets.USERNAME}}
+      
+
