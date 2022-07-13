@@ -27,7 +27,7 @@ class App extends React.Component {
                             <Route path="/signup" element={<UserSignup />} />
                         )}
                         <Route
-                            path="/user/:username"
+                            path="/users/:username"
                             element={<UserProfile />}
                         />
 
