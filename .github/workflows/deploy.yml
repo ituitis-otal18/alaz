@@ -15,7 +15,10 @@ jobs:
     - uses: actions/checkout@v3
     
     - name: copy private key
-      run: 'echo "$SSH_KEY" > /home/runner/.ssh/private_key.pem'
+      run: |
+        mkdir /home/runner/.ssh/
+        touch /home/runner/.ssh/private_key.pem
+        'echo "$SSH_KEY" > /home/runner/.ssh/private_key.pem'
       env:
         SSH_KEY: ${{secrets.SSH}}
     
