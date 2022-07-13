@@ -55,46 +55,6 @@ class UserList extends React.Component {
         const { allUsers, currentPage, totalPages, pendingApiCall } =
             this.state;
 
-        const spinner = (
-            <li className="page-item">
-                <button className="btn btn-primary" disabled>
-                    <span
-                        className="spinner-border spinner-border-sm"
-                        role="status"
-                        aria-hidden="true"
-                    ></span>
-                </button>
-            </li>
-        );
-        const pageButtons = (
-            <>
-                <li className="page-item">
-                    <button
-                        className="btn btn-primary d-inline-flex"
-                        disabled={currentPage === 1}
-                        onClick={this.backPage}
-                    >
-                        <span className="material-icons">arrow_back</span>
-                    </button>
-                </li>
-                <li className="page-item">
-                    <p className="page-link disabled">
-                        {` ${currentPage} / ${totalPages} `}
-                    </p>
-                </li>
-
-                <li className="page-item">
-                    <button
-                        className="btn btn-primary d-inline-flex"
-                        disabled={currentPage === totalPages}
-                        onClick={this.nextPage}
-                    >
-                        <span className="material-icons">arrow_forward</span>
-                    </button>
-                </li>
-            </>
-        );
-
         return (
             <div className="card">
                 <h3 className="card-header text-center">Users</h3>
@@ -116,7 +76,46 @@ class UserList extends React.Component {
                     ))}
                 </div>
                 <ul className="pagination justify-content-center pt-2">
-                    {pendingApiCall ? spinner : pageButtons}
+                    <li className="page-item">
+                        <button
+                            className="btn btn-primary d-inline-flex"
+                            disabled={currentPage === 1 || pendingApiCall}
+                            onClick={this.backPage}
+                        >
+                            <span className="material-icons">arrow_back</span>
+                        </button>
+                    </li>
+
+                    <li className="page-item">
+                        <p
+                            className="page-link disabled text-center"
+                            style={{ minWidth: '5em' }}
+                        >
+                            {pendingApiCall ? (
+                                <span
+                                    className="spinner-border spinner-border-sm"
+                                    role="status"
+                                    aria-hidden="true"
+                                ></span>
+                            ) : (
+                                `${currentPage} / ${totalPages}`
+                            )}
+                        </p>
+                    </li>
+
+                    <li className="page-item">
+                        <button
+                            className="btn btn-primary d-inline-flex"
+                            disabled={
+                                currentPage === totalPages || pendingApiCall
+                            }
+                            onClick={this.nextPage}
+                        >
+                            <span className="material-icons">
+                                arrow_forward
+                            </span>
+                        </button>
+                    </li>
                 </ul>
             </div>
         );
