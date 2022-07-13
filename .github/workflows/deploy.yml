@@ -50,14 +50,3 @@ jobs:
         local_path: ws/target/ws-0.0.1-SNAPSHOT.jar
         remote_path: /home/${{secrets.USERNAME}}
 
-    - name: SSH to Google Cloud Platform compute instances
-      uses: google-github-actions/ssh-compute@v0.1.0
-      with:
-        instance_name: instance-1
-        zone: europe-central2-a
-        user: ${{secrets.USERNAME}}
-        ssh_private_key: ${{secrets.SSH}}
-        command: |-
-          pgrep -u hkntgrl1928 'java' | xargs kill
-          nohup java -jar -Djava.security.edg=file:/dev/./urandom ws-0.0.1-SNAPSHOT.jar &
-
