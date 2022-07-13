@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { HashRouter, Routes, Route, Navigate } from 'react-router-dom';
 import UserSignup from './pages/UserSignup';
 import UserLogin from './pages/UserLogin';
 import Homepage from './pages/Homepage';
@@ -15,7 +15,7 @@ class App extends React.Component {
 
         return (
             <div>
-                <BrowserRouter>
+                <HashRouter>
                     <Navbar />
                     <Routes>
                         <Route path="/" element={<Homepage />} />
@@ -27,13 +27,13 @@ class App extends React.Component {
                             <Route path="/signup" element={<UserSignup />} />
                         )}
                         <Route
-                            path="/users/:username"
+                            path="/user/:username"
                             element={<UserProfile />}
                         />
 
                         <Route path="*" element={<Navigate to="/" />} />
                     </Routes>
-                </BrowserRouter>
+                </HashRouter>
             </div>
         );
     }
