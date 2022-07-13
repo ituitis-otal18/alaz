@@ -47,6 +47,6 @@ jobs:
         server: ${{secrets.IP}}
         ssh_private_key: ${{secrets.SSH}}
         local_path: ws/target/ws-0.0.1-SNAPSHOT.jar
-        remote_path: /home/${{secrets.USERNAME}}
+        remote_path: /home/hkntgrl1928
       
 
