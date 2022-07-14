@@ -3,10 +3,13 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import AuthContext from './api/AuthContext';
+import ThemeContext from './api/ThemeContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     <AuthContext>
-        <App />
+        <ThemeContext>
+            <App />
+        </ThemeContext>
     </AuthContext>
 );

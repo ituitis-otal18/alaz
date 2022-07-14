@@ -53,8 +53,8 @@ class UserSignup extends React.Component {
         return (
             <div className="container-fluid">
                 <div className="row d-flex justify-content-center align-items-center h-100">
-                    <div className="col-md-8 col-lg-6 col-xl-4">
-                        <div className="card">
+                    <div className="col-sm">
+                        <div className="card w-50 mx-auto">
                             <div className="card-header">
                                 <h1 className="card-title text-center">
                                     Sign up
@@ -101,11 +101,14 @@ class UserSignup extends React.Component {
                             </div>
                         </div>
                     </div>
-                    <div className="col-md-9 col-lg-6 col-xl-5">
+                    <div className="col-sm">
                         <img
-                            className="rounded mw-100 mh-50"
+                            className="img-thumbnail d-block mx-auto"
                             alt="bg"
                             src="https://source.unsplash.com/random"
+                            style={{
+                                maxHeight: 600,
+                            }}
                         />
                     </div>
                 </div>
